@@ -34,7 +34,7 @@ public:
         // cache is full, remove the least frequently used page
         size_t minIndex = 0;
         uint16_t minFrequency = frequencyMap[cache[minIndex]];
-        for(size_t i = 0; i < cache.size(); ++i) {
+        for(size_t i = 0; i < cache.size(); i++) {
             if(frequencyMap[cache[i]] < minFrequency) {
                 minIndex = i;
                 minFrequency = frequencyMap[cache[i]];

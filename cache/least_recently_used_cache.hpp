@@ -34,7 +34,7 @@ public:
         // cache is full, remove the least recently used page
         size_t minIndex = 0;
         uint16_t minTimeStamp = timeStamps[cache[minIndex]];
-        for(size_t i = 0; i < cache.size(); ++i) {
+        for(size_t i = 0; i < cache.size(); i++) {
             if(timeStamps[cache[i]] < minTimeStamp) {
                 minIndex = i;
                 minTimeStamp = timeStamps[cache[i]];

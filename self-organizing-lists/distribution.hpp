@@ -21,7 +21,7 @@ public:
 
     virtual uint16_t operator()() override{
         const double random = std::uniform_real_distribution<double>(0.0, 1.0)(generator);
-        for (uint16_t i = 0; i < N; ++i) {
+        for (uint16_t i = 0; i < N; i++) {
             if (random < probabilities[i]) {
                 return i;
             }
@@ -37,7 +37,7 @@ private:
     constexpr std::array<double, N> computeProbabilities() {
         std::array<double, N> probs = {};
         double sum = 0.0;
-        for (uint16_t i = 0; i < N; ++i) {
+        for (uint16_t i = 0; i < N; i++) {
             sum += Probability(i);
             probabilities[i] = sum;
         }
