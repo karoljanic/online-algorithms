@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "bin_pack.hpp"
+#include "offline_bin_packing.hpp"
 #include "best_fit_bin_pack.hpp"
 #include "first_fit_bin_pack.hpp"
 #include "next_fit_bin_pack.hpp"
@@ -83,6 +84,8 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
+    OfflineBinPacking binPackOffline{1.0};
+
     std::mt19937 generator(std::random_device{}());
     std::uniform_real_distribution<double> distributionSize(0.0, 1.0);
 
@@ -91,8 +94,7 @@ int main(int argc, char* argv[]) {
     for(size_t rep = 0; rep < repetitions; rep++) {
         binPack->reset();
         size_t binsNumber = 0;
-        size_t binsNumberLowerBound = 0;
-        double elementSizesSum = 0.0;
+        std::vector<double> elementSizes;
         
         size_t elementsCounter = 0;
         while(elementsCounter < elementsNumber) {
@@ -103,21 +105,20 @@ int main(int argc, char* argv[]) {
                     break;
                 }
                 binsNumber += binPack->pack(elementSize);
-                elementSizesSum += elementSize;
+                elementSizes.push_back(elementSize);
                 elementsCounter++;
             }
         }
-        binsNumberLowerBound += static_cast<size_t>(std::ceil(elementSizesSum));
 
         sumOfBinsNumber += binsNumber;
-        sumOfBinsNumberLowerBound += binsNumberLowerBound;
+        sumOfBinsNumberLowerBound += binPackOffline.pack(elementSizes);
     }
     
     if(repetitions == 0) {
-        std::cout << 0 << std::endl;
+        std::cout << 0 << " " << 0 << std::endl;
     }
     else {
-        std::cout << static_cast<double>(sumOfBinsNumber) / static_cast<double>(sumOfBinsNumberLowerBound) << std::endl;
+        std::cout << static_cast<double>(sumOfBinsNumber) / static_cast<double>(repetitions) << " " << static_cast<double>(sumOfBinsNumber) / static_cast<double>(sumOfBinsNumberLowerBound) << std::endl;
     }
 
     return 0;

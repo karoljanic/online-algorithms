@@ -23,19 +23,23 @@ Eksperyment polegał na przeprowadzeniu symulacji pakowania przedmiotów o losow
 #v(0.05em)
 - rozkład dwuharmoniczny ($PP[X=i] = 1/(i^2 H^((2))_10)$)
 
-Wynikiem eksperymentu była liczba użytych pojemników. Porównywano ją z minimalną liczbą pojemników potrzebnych do spakowania przedmiotów o danej sumie rozmiarów przedmiotów. \
-Jest to dolna granica liczby niezbędnych pojemników. W ten sposób otrzymywano wsþółczynnik konkurencyjności algorytmu. 
-
-== Wyniki eksperymentu
-#for chart in ("plots/competitiveness_per_strategy.png", "plots/competitiveness_per_distribution.png") {
-    figure(
-    image(chart, width: 85%),
-    )
-}
+Wynikiem eksperymentu była liczba użytych pojemników. Porównywano ją z minimalną liczbą pojemników potrzebnych do spakowania przedmiotów wyznaczanej przy użyciu heurystyki offline - elementy sortowano malejąco i uruchamiano algorytm First Fit. Jest to dolna granica liczby niezbędnych pojemników. W ten sposób otrzymywano wsþółczynnik konkurencyjności algorytmu. 
 
 == Wnioski
 - Najlepsze wyniki uzyskano dla metod Best Fit, First Fit oraz Random Fit. Najgorsze wyniki uzyskano dla metod Next Fit co było przewidywalne, ponieważ algorytm ten nie wykorzystuje w~pełni pojemności wszystkich pojemników.
 
-- W przypadku czterech najlepszych metod wpływ rozkładu liczby kopii przedmiotów na wyniki był mały. Najlepsze wyniki uzyskano dla rozkładu geometrycznego i dwuharmonicznego, ponieważ generowały one małą liczbę takich samych przedmiotów. Powtórzenia przedmiotów w~przypadku większych rozmiarów wymagają wielu osobnych pojemników. Rozkład jednostajny i harmoniczny genrował zróżnicowane przedmioty, co powodowało gorsze współczynniki konkurencyjności.
+- W przypadku trzech najlepszych metod wpływ rozkładu liczby kopii przedmiotów na wyniki był mały. Najlepsze wyniki uzyskano dla rozkładu geometrycznego i dwuharmonicznego, ponieważ generowały one małą liczbę takich samych przedmiotów. Powtórzenia przedmiotów w~przypadku większych rozmiarów wymagają wielu osobnych pojemników. Rozkład jednostajny i harmoniczny generował zróżnicowane przedmioty, co powodowało gorsze współczynniki konkurencyjności.
 
-- W przypadku metody Next Fit wpływ rozkładu liczby kopii przedmiotów na wyniki był minimalny. 
+- Rozkład geometryczny i dwuharmoniczny generowały gorsze współczynniki konkurencyjności, ponieważ miały one skłonność do tworzenia małej liczby kopii.
+
+== Wyniki eksperymentu
+#for chart in (
+    "plots/bins_number_per_strategy.png", 
+    "plots/competitiveness_per_strategy.png", 
+    "plots/bins_number_per_distribution.png",
+    "plots/competitiveness_per_distribution.png"
+    ) {
+    figure(
+    image(chart, width: 95%),
+    )
+}
