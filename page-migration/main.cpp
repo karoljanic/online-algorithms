@@ -8,7 +8,8 @@
 #include "torus.hpp"
 #include "distribution.hpp"
 
-constexpr uint16_t TORUS_DIMENSION = 8;
+constexpr uint16_t TORUS_DIMENSION = 3;
+constexpr uint16_t TORUS_SIZE = 4;
 constexpr uint16_t HYPERCUBE_DIMENSION = 6;
 
 constexpr size_t REQUESTS_NUMBER = 64;
@@ -44,6 +45,7 @@ constexpr double biharmonicDistributionProbability(uint16_t index) {
 }
 
 
+
 int main(int argc, char* argv[]) {
     if(argc != 7) {
         std::cerr << "Usage: " << argv[0] << " <graph_type> <strategy> <distribution> <d_value> <requests_number> <repetitions>" << std::endl;
@@ -59,7 +61,7 @@ int main(int argc, char* argv[]) {
 
     std::unique_ptr<Graph> graph;
     if(graphType == "torus") {
-        graph = std::make_unique<Torus>(TORUS_DIMENSION);
+        graph = std::make_unique<Torus>(TORUS_DIMENSION, TORUS_SIZE);
     } else if(graphType == "hypercube") {
         graph = std::make_unique<Hypercube>(HYPERCUBE_DIMENSION);
     } else {
